@@ -2,7 +2,7 @@
 /** @type {import('sequelize-cli').Migration} */
 module.exports = {
   async up(queryInterface, Sequelize) {
-    await queryInterface.createTable('Penerbangans', {
+    await queryInterface.createTable('Penerbangan', {
       id: {
         allowNull: false,
         autoIncrement: true,
@@ -15,6 +15,33 @@ module.exports = {
       arival_time: {
         type: Sequelize.DATE
       },
+      plane_id: {
+        type: Sequelize.INTEGER,
+        references: {
+          model: 'Pesawat',
+          key: 'id',
+        },
+        onUpdate: 'CASCADE',
+        onDelete: 'CASCADE',
+      },
+      depart_id: {
+        type: Sequelize.INTEGER,
+        references: {
+          model: 'Bandara',
+          key: 'id',
+        },
+        onUpdate: 'CASCADE',
+        onDelete: 'CASCADE',
+      },
+      destination_id: {
+        type: Sequelize.INTEGER,
+        references: {
+          model: 'Bandara',
+          key: 'id',
+        },
+        onUpdate: 'CASCADE',
+        onDelete: 'CASCADE',
+      },
       createdAt: {
         allowNull: false,
         type: Sequelize.DATE
@@ -26,6 +53,6 @@ module.exports = {
     });
   },
   async down(queryInterface, Sequelize) {
-    await queryInterface.dropTable('Penerbangans');
+    await queryInterface.dropTable('Penerbangan');
   }
 };

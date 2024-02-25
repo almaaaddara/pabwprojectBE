@@ -29,12 +29,6 @@ module.exports = (sequelize, DataTypes) => {
         allowNull: 'false',
         onDelete: 'CASCADE',
       });
-      // Peserta.belongsTo(models.User, {
-      //   foreignKey: 'id_user',
-      //   targetKey: 'id',
-      //   allowNull: 'false',
-      //   onDelete: 'CASCADE', // Optional: Set the deletion behavior
-      // });
     }
   }
   Pesawat.init({

@@ -3,7 +3,7 @@ const {
   Model
 } = require('sequelize');
 module.exports = (sequelize, DataTypes) => {
-  class Kamar extends Model {
+  class Room_Type extends Model {
     /**
      * Helper method for defining associations.
      * This method is not a part of Sequelize lifecycle.
@@ -11,13 +11,7 @@ module.exports = (sequelize, DataTypes) => {
      */
     static associate(models) {
       // define association here
-      Kamar.belongsTo(models.Pemesanan_Kamar, {
-        foreignKey: 'id_kamar',
-        targetKey: 'id',
-        allowNull: 'false',
-        onDelete: 'CASCADE', // Optional: Set the deletion behavior
-      });
-      Kamar.hasMany(models.Room_Type, {
+      Room_Type.belongsTo(models.Kamar, {
         foreignKey: 'room_type',
         targetKey: 'id',
         allowNull: 'false',
@@ -25,13 +19,12 @@ module.exports = (sequelize, DataTypes) => {
       });
     }
   }
-  Kamar.init({
-    room_number: DataTypes.STRING,
-    room_capacity: DataTypes.INTEGER,
-    price: DataTypes.DECIMAL
+  Room_Type.init({
+    room_type: DataTypes.INTEGER,
+    image: DataTypes.STRING
   }, {
     sequelize,
-    modelName: 'Kamar',
+    modelName: 'Room_Type',
   });
-  return Kamar;
+  return Room_Type;
 };

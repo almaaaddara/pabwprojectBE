@@ -15,11 +15,17 @@ module.exports = {
       room_capacity: {
         type: Sequelize.INTEGER
       },
-      room_type: {
-        type: Sequelize.INTEGER
-      },
       price: {
         type: Sequelize.DECIMAL
+      },
+      room_type: {
+        type: Sequelize.INTEGER,
+        references: {
+          model: 'Room_Type',
+          key: 'id',
+        },
+        onUpdate: 'CASCADE',
+        onDelete: 'CASCADE',
       },
       createdAt: {
         allowNull: false,

@@ -32,11 +32,25 @@ module.exports = (sequelize, DataTypes) => {
     }
   }
   Rekanan.init({
-    name: DataTypes.STRING,
-    address: DataTypes.STRING,
-    phone: DataTypes.STRING,
-    description: DataTypes.STRING,
-    type: DataTypes.STRING
+    name: {
+      type: DataTypes.STRING,
+      allowNull: false,
+    },
+    address: {
+      type: DataTypes.STRING,
+      allowNull: false,
+    },
+    phone: {
+      type: DataTypes.STRING,
+      allowNull: false,
+    },
+    description: {
+      type: DataTypes.STRING,
+    },
+    type: {
+      type: DataTypes.STRING,
+      allowNull: false,
+    },
   }, {
     sequelize,
     modelName: 'Rekanan',

@@ -3,15 +3,19 @@ const router = express.Router();
 const User = require("../controller/penggunaController");
 // const autentikasi = require("../middleware/auth");
 
-// endpoint regist peserta
+// endpoint POST data regist pengguna
 router.post("/register", User.register);
 
-// endpoint login peserta
+// endpoint POST login pengguna (untuk membaca email dan password)
 router.post("/login", User.login);
+
+// endpoint POST untuk ngecek token pengguna saat login
 router.post("/token", User.verifyToken)
-// router.get("/", autentikasi, Auth.checkToken);
-// router.get("/get", Auth.findUser);
-// router.get("/peserta/token/:token", Auth.getPesertaJWT);
-// router.get("/token/:token", Auth.getUserJWT);
+
+// endpoint GET untuk mendapatkan data All Peserta
+router.get("/", User.getAllUser);
+
+// endpoint GET untuk mendapatkan data Peserta by ID
+router.get("/:id", User.getUserById);
 
 module.exports = router;

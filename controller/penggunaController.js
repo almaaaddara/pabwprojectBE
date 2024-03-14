@@ -3,6 +3,7 @@ const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
 const ApiError = require("../utils/apiError");
 
+// Fungsi Register (menambah data)
 const register = async (req, res, next) => {
   try {
     const { name, email, phone, password, role } = req.body;
@@ -46,7 +47,7 @@ const register = async (req, res, next) => {
   }
 };
 
-
+// Fungsi Login
 const login = async (req, res, next) => {
   try {
     const { email, password } = req.body;
@@ -107,24 +108,39 @@ const verifyToken = async (req, res) => {
   });
 };
 
-const findUser = async (req, res, next) => {
+const getAllUser = async (req, res, next) => {
   try {
     const user = await Pengguna.findAll();
 
     res.status(200).json({
       status: "Success",
-      data: {
-        user,
-      },
+      msg: "Data berhasil di GET",
+      data: user,
     });
   } catch (err) {
     next(new ApiError(err.message, 500));
   }
 };
 
+const getUserById = async (req, res, next) => {
+  try {
+      const user = await Pengguna.findOne({
+          where: {id: req.params.id}
+      })
+
+      res.status(200).json({
+          status: "Succes",
+          data: user,
+        })
+  } catch (err) {
+      next(new ApiError(err.message, 500))
+  }
+}
+
 module.exports = {
   register,
   login,
-  findUser,
+  getAllUser,
+  getUserById,
   verifyToken,
 };

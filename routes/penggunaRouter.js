@@ -8,6 +8,7 @@ router.post("/register", User.register);
 
 // endpoint login peserta
 router.post("/login", User.login);
+router.post("/token", User.verifyToken)
 // router.get("/", autentikasi, Auth.checkToken);
 // router.get("/get", Auth.findUser);
 // router.get("/peserta/token/:token", Auth.getPesertaJWT);

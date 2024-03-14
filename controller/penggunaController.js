@@ -1,4 +1,4 @@
-const { Pengguna } = require("../models");
+const { Pengguna, Logs } = require("../models");
 const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
 const ApiError = require("../utils/apiError");
@@ -26,6 +26,14 @@ const register = async (req, res, next) => {
       password: hashedPassword,
       role,
     });
+
+    if (newUser) {
+      const logRegistrasi = await Logs.create({
+        pesan: `User dengan ID ${newUser.id} berhasil terdaftar`,
+        waktu: new Date().toISOString().slice(0, 19).replace("T", " "),
+      })
+    }
+
     return res.status(200).json({
       message: "User registered successfully",
       user: newUser,
@@ -36,6 +44,7 @@ const register = async (req, res, next) => {
     });
   }
 };
+
 
 const login = async (req, res, next) => {
   try {
@@ -52,17 +61,13 @@ const login = async (req, res, next) => {
           role: user.role,
           email: user.email,
         },
-        process.env.JWT_SECRET
-      );
+        process.env.JWT_SECRET,
+        { expiresIn: "6h"});
+
       res.status(200).json({
         status: "Success",
         message: "Login successful",
-        user: {
-          id: user.id,
-          email: user.email,
-          role: user.role,
-        },
-        jwt: token,
+        token: token,
       });
     } else {
       // next(new ApiError("Email or password does not match", 401))
@@ -76,17 +81,20 @@ const login = async (req, res, next) => {
   }
 };
 
-const checkToken = async (req, res, next) => {
-  try {
-    res.status(200).json({
-      status: "Success",
-      data: {
-        user: req.user,
-      },
+const verifyToken = async (req, res) => {
+  const { token } = req.body;
+
+  if (token) {
+    const data = jwt.verify(token, process.env.JWT_SECRET);
+
+    return res.json({
+      data: data,
     });
-  } catch (err) {
-    next(new ApiError(err.message, 500));
   }
+
+  return res.json({
+    msg: "Token invalid",
+  });
 };
 
 const findUser = async (req, res, next) => {
@@ -107,6 +115,6 @@ const findUser = async (req, res, next) => {
 module.exports = {
   register,
   login,
-  checkToken,
   findUser,
+  verifyToken,
 };

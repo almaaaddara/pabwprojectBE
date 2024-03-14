@@ -29,6 +29,7 @@ const register = async (req, res, next) => {
 
     if (newUser) {
       const logRegistrasi = await Logs.create({
+        id_pengguna: newUser.id,
         pesan: `User dengan ID ${newUser.id} berhasil terdaftar`,
         waktu: new Date().toISOString().slice(0, 19).replace("T", " "),
       })
@@ -63,6 +64,13 @@ const login = async (req, res, next) => {
         },
         process.env.JWT_SECRET,
         { expiresIn: "6h"});
+
+        // MEMBUAT LOGS UNTUK LOGIN
+      const logLogin = await Logs.create({
+        id_pengguna: user.id,
+        pesan: `User dengan ID ${user.id} berhasil login`,
+        waktu: new Date().toISOString().slice(0, 19).replace("T", " "),
+      });
 
       res.status(200).json({
         status: "Success",

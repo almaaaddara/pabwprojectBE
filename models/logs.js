@@ -10,12 +10,17 @@ module.exports = (sequelize, DataTypes) => {
      * The `models/index` file will call this method automatically.
      */
     static associate(models) {
-      // define association here
+      Logs.belongsTo(models.Pengguna, {
+        foreignKey: 'id_pengguna',
+        targetKey: 'id',
+        allowNull: 'false',
+        onDelete: 'CASCADE', // Optional: Set the deletion behavior
+      });
     }
   }
   Logs.init({
     pesan: DataTypes.STRING,
-    waktu: DataTypes.STRING
+    waktu: DataTypes.STRING,
   }, {
     sequelize,
     modelName: 'Logs',

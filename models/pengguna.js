@@ -23,6 +23,12 @@ module.exports = (sequelize, DataTypes) => {
         allowNull: 'false',
         onDelete: 'CASCADE',
       });
+      Pengguna.hasMany(models.Logs, {
+        foreignKey: 'id_pengguna', // Asumsi Anda memiliki kolom bernama rekananId di tabel Pesawat untuk menyimpan asosiasi
+        targetKey: 'id',
+        allowNull: 'false',
+        onDelete: 'CASCADE',
+      });
     }
   }
   Pengguna.init({

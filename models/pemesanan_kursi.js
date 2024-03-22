@@ -11,7 +11,7 @@ module.exports = (sequelize, DataTypes) => {
      */
     static associate(models) {
       // define association here
-      Pemesanan_Kursi.hasMany(models.Kursi, {
+      Pemesanan_Kursi.belongsTo(models.Kursi, {
         foreignKey: 'id_kursi', // Asumsi Anda memiliki kolom bernama rekananId di tabel Pesawat untuk menyimpan asosiasi
         targetKey: 'id',
         allowNull: 'false',

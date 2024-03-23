@@ -34,6 +34,21 @@ const getPlane = async (req, res, next) => {
     }
 }
 
+const getPlaneById = async (req, res, next) => {
+  try {
+      const plane = await Pesawat.findOne({
+          where: {id: req.params.id}
+      })
+
+      res.status(200).json({
+          status: "Succes",
+          data: plane,
+        })
+  } catch (err) {
+      next(new ApiError(err.message, 500))
+  }
+}
+
 // Controller UPDATE Plane
 const updatePlane = async (req, res, next) => {
     try {
@@ -101,6 +116,7 @@ const deletePlane = async (req, res, next) => {
 module.exports = {
     createPlane,
     getPlane,
+    getPlaneById,
     deletePlane,
     updatePlane
   };

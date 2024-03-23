@@ -10,7 +10,7 @@ router.post("/add", Bandara.createBandara);
 router.get("/", Bandara.getbandara);
 
 // endpoint get bandara by id
-router.get("/get/:id", Bandara.getBandaraById);
+router.get("/:id", Bandara.getBandaraById);
 
 // endpoint update bandara (BELUM BERHASIL!!!)
 // router.patch("/update/:id", Bandara.updateBandara);

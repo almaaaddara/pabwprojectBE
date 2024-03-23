@@ -6,11 +6,13 @@ const Kursi = require("../controller/kursiController");
 // endpoint add kursi
 router.post("/add", Kursi.createKursi);
 
-// endpoint read all kursi (BELUM SELESAIII)
+// endpoint read all kursi
 router.get("/", Kursi.getKursi);
 
-// endpoint update kursi
-router.patch("/update/:id", Kursi.updateKursi);
+router.get("/:id", Kursi.getKursiById);
+
+// endpoint update kursi (BELUM BERHASIL!!!)
+// router.patch("/update/:id", Kursi.updateKursi);
 
 // endpoint delete kursi
 router.delete("/delete/:id", Kursi.deleteKursi);

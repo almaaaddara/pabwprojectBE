@@ -34,6 +34,22 @@ const getKursi = async (req, res, next) => {
     }
 }
 
+// Read Kursi By ID
+const getKursiById = async (req, res, next) => {
+  try {
+      const kursi = await Kursi.findOne({
+          where: {id: req.params.id}
+      })
+
+      res.status(200).json({
+          status: "Succes",
+          data: kursi,
+        })
+  } catch (err) {
+      next(new ApiError(err.message, 500))
+  }
+}
+
 // Controller UPDATE Kursi
 const updateKursi = async (req, res, next) => {
     try {
@@ -101,6 +117,7 @@ const deleteKursi = async (req, res, next) => {
 module.exports = {
     createKursi,
     getKursi,
+    getKursiById,
     deleteKursi,
     updateKursi
   };

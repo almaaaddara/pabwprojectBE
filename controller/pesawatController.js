@@ -1,23 +1,43 @@
-const { Pesawat } = require("../models")
+const { Pesawat, Kursi } = require("../models")
 const ApiError = require("../utils/apiError")
 
 // Controller CREATE Plane
 const createPlane = async (req, res, next) => {
-    try {
-        const { plane_number, plane_type, airplane_partner } = req.body
+  try {
+      const { plane_number, plane_type, airplane_partner } = req.body
 
-        const newPlane = await Pesawat.create({
-            plane_number, 
-            plane_type, 
-            airplane_partner
-        })
-        res.status(200).json({
-            status: "Success add new plane",
-            newPlane
-          })
-    } catch (err) {
-        next(new ApiError(err.message, 500))
-    }
+      // Membuat pesawat baru
+      const newPlane = await Pesawat.create({
+          plane_number, 
+          plane_type, 
+          airplane_partner
+      });
+
+      // Membuat 200 kursi untuk pesawat baru
+      const rows = 20;
+      const columns = ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J'];
+
+      const kursiData = [];
+      for (let i = 1; i <= rows; i++) {
+          for (let j = 0; j < columns.length; j++) {
+              const seat_number = columns[j] + i.toString();
+              const seat_status = "True"; // Atur status kursi ke True sesuai kebutuhan
+              const plane_id = newPlane.id;
+
+              kursiData.push({ seat_number, seat_status, plane_id });
+          }
+      }
+
+      // Simpan semua kursi ke dalam database
+      await Kursi.bulkCreate(kursiData);
+
+      res.status(200).json({
+          status: "Success add new plane",
+          newPlane
+      });
+  } catch (err) {
+      next(new ApiError(err.message, 500));
+  }
 }
 
 // controller READ Plane

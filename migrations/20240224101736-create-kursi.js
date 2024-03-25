@@ -15,6 +15,16 @@ module.exports = {
       seat_status: {
         allowNull: false,
         type: Sequelize.ENUM('True', 'False'),
+        defaultValue: 'True'
+      },
+      plane_id: {
+        type: Sequelize.INTEGER,
+        references: {
+          model: 'Pesawat',
+          key: 'id',
+        },
+        onUpdate: 'CASCADE',
+        onDelete: 'CASCADE',
       },
       createdAt: {
         allowNull: false,

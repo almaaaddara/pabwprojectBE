@@ -12,12 +12,12 @@ module.exports = (sequelize, DataTypes) => {
     static associate(models) {
       // define association here
       Kursi.belongsTo(models.Pesawat, {
-        foreignKey: 'seat_id',
+        foreignKey: 'plane_id',
         targetKey: 'id',
         allowNull: 'false',
         onDelete: 'CASCADE', // Optional: Set the deletion behavior
       });
-      Kursi.belongsTo(models.Pemesanan_Kursi, {
+      Kursi.hasOne(models.Pemesanan_Kursi, {
         foreignKey: 'id_kursi',
         targetKey: 'id',
         allowNull: 'false',
@@ -30,6 +30,7 @@ module.exports = (sequelize, DataTypes) => {
     seat_status: {
       allowNull: false,
       type: DataTypes.ENUM("True", "False"),
+      defaultValue: "True"
     },
   }, {
     sequelize,

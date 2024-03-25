@@ -18,7 +18,7 @@ module.exports = (sequelize, DataTypes) => {
         onDelete: 'CASCADE',
       });
       Pesawat.hasMany(models.Kursi, {
-        foreignKey: 'seat_id', // Asumsi Anda memiliki kolom bernama rekananId di tabel Pesawat untuk menyimpan asosiasi
+        foreignKey: 'plane_id', // Asumsi Anda memiliki kolom bernama rekananId di tabel Pesawat untuk menyimpan asosiasi
         targetKey: 'id',
         allowNull: 'false',
         onDelete: 'CASCADE',

@@ -10,9 +10,7 @@ const getTransaksi = async (req, res, next) => {
     res.status(200).json({
       status: "Berhasil",
       message: "Transaksi berhasi didapatkan",
-      data: {
-        transaksi,
-      },
+      transaksi
     });
   } catch (err) {
     next(new ApiError(err.message, 500));

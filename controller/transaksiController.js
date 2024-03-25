@@ -42,12 +42,13 @@ const getTransaksiId = async (req, res, next) => {
 const addTransaksi = async (req, res, next) => {
   try {
     const { price, status, id_pengguna } = req.body;
-    // const thisTransaksi = await Transaksi.findOne({
-    //   where: { id: req.params.id },
+
+    // MEMBUAT LOGS UNTUK LOGIN
+    // const logTransaksi = await Logs.create({
+    //   id_pengguna,
+    //   pesan: `Transaksi dengan user ID ${id_pengguna} berhasil dilakukan`,
+    //   waktu: new Date().toISOString().slice(0, 19).replace("T", " "),
     // });
-    // if (thisTransaksi) {
-    //   return next(new ApiError("Transaksi telah dilakukan", 400));
-    // }
 
     const newTransaksi = await Transaksi.create({
       price,

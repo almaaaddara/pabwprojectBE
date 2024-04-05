@@ -2,7 +2,7 @@
 const {
   Model, DataTypes
 } = require('sequelize');
-module.exports = (sequelize, DataTypes) => {
+module.exports = (sequelize) => {
   class Pemesanan_Kursi extends Model {
     /**
      * Helper method for defining associations.
@@ -14,19 +14,19 @@ module.exports = (sequelize, DataTypes) => {
       Pemesanan_Kursi.belongsTo(models.Kursi, {
         foreignKey: 'id_kursi', // Asumsi Anda memiliki kolom bernama rekananId di tabel Pesawat untuk menyimpan asosiasi
         targetKey: 'id',
-        allowNull: 'false',
+        allowNull: false,
         onDelete: 'CASCADE',
       });
       Pemesanan_Kursi.belongsTo(models.Transaksi, {
         foreignKey: 'id_transaksi',
         targetKey: 'id',
-        allowNull: 'false',
+        allowNull: false,
         onDelete: 'CASCADE', // Optional: Set the deletion behavior
       });
       Pemesanan_Kursi.belongsTo(models.Penerbangan, {
         foreignKey: 'id_penerbangan',
         targetKey: 'id',
-        allowNull: 'false',
+        allowNull: false,
         onDelete: 'CASCADE', // Optional: Set the deletion behavior
       });
     }

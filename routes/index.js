@@ -10,6 +10,8 @@ const Room_Type = require("./room_typeRouter");
 const Kursi = require("./kursiRouter");
 const Bandara = require("./bandaraRouter");
 const Pesawat = require("./pesawatRouter");
+const Penerbangan = require("./penerbanganRouter");
+const Pemesanan_Kursi = require("./pemesanan_kursiRouter");
 
 router.use("/user", User);
 router.use("/mitra", Rekanan);
@@ -21,5 +23,7 @@ router.use("/log", Logs);
 router.use("/kursi", Kursi);
 router.use("/bandara", Bandara);
 router.use("/plane", Pesawat);
+router.use("/penerbangan", Penerbangan);
+router.use("/pemesanan_kursi", Pemesanan_Kursi);
 
 module.exports = router;

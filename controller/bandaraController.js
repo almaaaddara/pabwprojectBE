@@ -48,21 +48,6 @@ const getbandara = async (req, res, next) => {
     }
 }
 
-// Controller get bandara by ID
-const getBandaraId = async (req, res, next) => {
-  try {
-      const bandara = await Bandara.findOne({
-          where: {id: req.params.id}
-      })
-
-      res.status(200).json({
-          status: "Succes",
-          data: bandara,
-        })
-  } catch (err) {
-      next(new ApiError(err.message, 500))
-  }
-}
 
 // Controller UPDATE bandara
 const updateBandara = async (req, res, next) => {

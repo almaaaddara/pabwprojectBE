@@ -26,7 +26,9 @@ const getRekananId = async (req, res, next) => {
     res.status(200).json({
       status: "Berhasil",
       message: `Mitra dengan ID ${req.params.id} didapatkan`,
-      rekanan,
+      data: {
+        rekanan,
+      },
     });
   } catch (err) {
     next(new ApiError(err.message, 500));
@@ -48,7 +50,9 @@ const addRekanan = async (req, res, next) => {
     });
     res.status(200).json({
       status: "Mitra berhasil ditambahkan",
-      newRekanan,
+      data: {
+        newRekanan,
+      },
     });
   } catch (err) {
     next(new ApiError(err.message, 500));
@@ -82,7 +86,9 @@ const updateRekanan = async (req, res, next) => {
     res.status(200).json({
       status: "Berhasil",
       message: `Mitra dengan ID ${req.params.id} berhasil diupdate`,
-      rekanan,
+      data: {
+        rekanan,
+      },
     });
   } catch (err) {
     next(new ApiError(err.message, 500));

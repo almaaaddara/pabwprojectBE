@@ -85,7 +85,35 @@ const updateRoom_Type = async (req, res, next) => {
 };
 
 // delete room type
-const deleteRoom_Type = async (req, res, next) => {};
+const deleteRoom_Type = async (req, res, next) => {
+  try {
+    const room_type = await Room_Type.findOne({
+      where: { id: req.params.id },
+    });
+
+    if (!room_type) {
+      return next(
+        new ApiError(
+          `Tipe Kamar dengan ID ${req.params.id} tidak ditemukan`,
+          404
+        )
+      );
+    }
+
+    await Room_Type.destroy({
+      where: {
+        id: req.params.id,
+      },
+    });
+
+    res.status(200).json({
+      status: "Berhasil",
+      message: `Tipe Kamar dengan ID ${req.params.id} berhasil dihapus`,
+    });
+  } catch (err) {
+    next(new ApiError(err.message, 500));
+  }
+};
 
 module.exports = {
   getRoom_Type,

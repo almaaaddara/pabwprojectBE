@@ -23,14 +23,22 @@ module.exports = (sequelize, DataTypes) => {
         allowNull: 'false',
         onDelete: 'CASCADE', // Optional: Set the deletion behavior
       });
+      Penerbangan.belongsTo(models.Rekanan, {
+        foreignKey: 'rekanan_id',
+        targetKey: 'id',
+        allowNull: 'false',
+        onDelete: 'CASCADE', // Optional: Set the deletion behavior
+      });
       Penerbangan.belongsTo(models.Bandara, {
         foreignKey: 'depart_id',
+        as: 'departBandara',
         targetKey: 'id',
         allowNull: 'false',
         onDelete: 'CASCADE', // Optional: Set the deletion behavior
       });
       Penerbangan.belongsTo(models.Bandara, {
         foreignKey: 'destination_id',
+        as: 'destinationBandara',
         targetKey: 'id',
         allowNull: 'false',
         onDelete: 'CASCADE', // Optional: Set the deletion behavior
@@ -39,7 +47,8 @@ module.exports = (sequelize, DataTypes) => {
   }
   Penerbangan.init({
     departure_time: DataTypes.DATE,
-    arival_time: DataTypes.DATE
+    arival_time: DataTypes.DATE,
+    price: DataTypes.DECIMAL
   }, {
     sequelize,
     modelName: 'Penerbangan',

@@ -1,10 +1,17 @@
-const { Penerbangan } = require("../models");
+const { Penerbangan, Bandara, Pesawat, Rekanan } = require("../models");
 const ApiError = require("../utils/apiError");
 
 // get all penerbangan
 const getPenerbangan = async (req, res, next) => {
   try {
-    const penerbangan = await Penerbangan.findAll();
+    const penerbangan = await Penerbangan.findAll({
+      include: [
+        { model: Bandara, as: 'departBandara', attributes: ['name'] },
+        { model: Bandara, as: 'destinationBandara', attributes: ['name'] },
+        { model: Pesawat, attributes: ['plane_type'] },
+        { model: Rekanan, attributes: ['name'] }
+      ]
+    });
 
     res.status(200).json({
       status: "Berhasil",
@@ -21,6 +28,12 @@ const getPenerbanganId = async (req, res, next) => {
   try {
     const penerbangan = await Penerbangan.findOne({
       where: { id: req.params.id },
+      include: [
+        { model: Bandara, as: 'DepartureAirport', attributes: ['name'] },
+        { model: Bandara, as: 'DestinationAirport', attributes: ['name'] },
+        { model: Pesawat, attributes: ['plane_type'] },
+        { model: Rekanan, attributes: ['name'] }
+      ]
     });
 
     res.status(200).json({
@@ -39,6 +52,8 @@ const addPenerbangan = async (req, res, next) => {
     const {
       departure_time,
       arival_time,
+      price,
+      rekanan_id,
       plane_id,
       depart_id,
       destination_id,
@@ -54,6 +69,8 @@ const addPenerbangan = async (req, res, next) => {
     const newPenerbangan = await Penerbangan.create({
         departure_time,
       arival_time,
+      price,
+      rekanan_id,
       plane_id,
       depart_id,
       destination_id,

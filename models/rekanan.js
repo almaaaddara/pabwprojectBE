@@ -23,6 +23,12 @@ module.exports = (sequelize, DataTypes) => {
         allowNull: 'false',
         onDelete: 'CASCADE',
       });
+      Rekanan.hasMany(models.Penerbangan, {
+        foreignKey: 'rekanan_id', // Asumsi Anda memiliki kolom bernama rekananId di tabel Pesawat untuk menyimpan asosiasi
+        targetKey: 'id',
+        allowNull: 'false',
+        onDelete: 'CASCADE',
+      });
       Rekanan.belongsTo(models.Pengguna, {
         foreignKey: 'id_pengguna',
         targetKey: 'id',

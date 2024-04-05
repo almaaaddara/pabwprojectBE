@@ -15,10 +15,22 @@ module.exports = {
       arival_time: {
         type: Sequelize.DATE
       },
+      price: {
+        type: Sequelize.DECIMAL
+      },
       plane_id: {
         type: Sequelize.INTEGER,
         references: {
           model: 'Pesawat',
+          key: 'id',
+        },
+        onUpdate: 'CASCADE',
+        onDelete: 'CASCADE',
+      },
+      rekanan_id: {
+        type: Sequelize.INTEGER,
+        references: {
+          model: 'Rekanan',
           key: 'id',
         },
         onUpdate: 'CASCADE',

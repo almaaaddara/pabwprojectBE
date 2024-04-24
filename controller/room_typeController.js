@@ -37,11 +37,18 @@ const getRoom_TypeId = async (req, res, next) => {
 // post room type
 const addRoom_Type = async (req, res, next) => {
   try {
-    const { room_type, image } = req.body;
+    const file = req.file;
+        
+        // Cek apakah ada gambar yang diunggah
+        if (!file) {
+            return next(new ApiError("Silakan pilih file gambar!", 400));
+        }
+
+    const { room_type } = req.body;
 
     const newRoom_Type = await Room_Type.create({
       room_type,
-      image,
+      image: file.path,
     });
     res.status(200).json({
       status: "Room Type berhasil ditambahkan",

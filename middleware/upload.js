@@ -1,41 +1,31 @@
-// const multer = require("multer");
-// const ApiError = require("../utils/apiError");
-
-// const storage = multer.memoryStorage();
-// const allowedImageMimeTypes = ["image/jpg", "image/png", "image/jpeg"];
-
-// const imageFilter = (req, file, cb) => {
-//   const isAllowedMimeType = allowedImageMimeTypes.includes(file.mimetype);
-//   if (isAllowedMimeType) {
-//     return cb(null, true);
-//   }
-//   return cb(new ApiError("Ekstensi gambar tidak valid", 400));
-// };
-
-// const upload = multer({
-//   storage,
-//   fileFilter: function (req, file, cb) {
-//     if (file.fieldname === "imageFile") {
-//       imageFilter(req, file, cb);
-//     }
-//     cb(new ApiError("Field tidak valid", 400));
-//   },
-// }).fields([
-//   { name: "imageFile", maxCount: 10 },
-// ]);
-
-// module.exports = upload;
-
-// --------------------------------------
 const multer = require("multer");
-const ApiError = require("../utils/apiError");
+const path = require("path");
 
 const storage = multer.diskStorage({
-  destination: function (req, file, cb) {
-    cb(null, "./uploads");
-  },
-  filename: function (req, file, cb) {
-    cb(null, file.originalname); // Preserve the original filename
-  },
-});
-const upload = multer({ storage: storage });
+    destination: function (req, file, cb) {
+      cb(null, path.join(__dirname, "../uploads"));
+    },
+    // konfigurasi penamaan file
+    filename: function (req, file, cb) {
+      cb(
+        null,
+        file.originalname
+      );
+    },
+  });
+
+  const fileFilter = (req, file, cb) => {
+    // Filter jenis file yang diizinkan untuk diunggah
+    if (file.mimetype === 'image/jpeg' || file.mimetype === 'image/jpg' || file.mimetype === 'image/png') {
+      cb(null, true); // Terima file
+    } else {
+      cb(new Error('Jenis file tidak didukung!'), false); // Tolak file
+    }
+  };
+
+  const upload = multer({
+    storage: storage,
+    fileFilter: fileFilter,
+  });
+
+  module.exports = upload

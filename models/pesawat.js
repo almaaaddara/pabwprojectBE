@@ -33,7 +33,9 @@ module.exports = (sequelize, DataTypes) => {
   }
   Pesawat.init({
     plane_number: DataTypes.STRING,
-    plane_type: DataTypes.STRING
+    plane_type: DataTypes.STRING,
+    row: DataTypes.INTEGER,
+    column: DataTypes.INTEGER
   }, {
     sequelize,
     modelName: 'Pesawat',

@@ -4,41 +4,43 @@ const ApiError = require("../utils/apiError")
 // Controller CREATE Plane
 const createPlane = async (req, res, next) => {
   try {
-      const { plane_number, plane_type, airplane_partner } = req.body
+    const { plane_number, plane_type, airplane_partner, row, column } = req.body;
 
-      // Membuat pesawat baru
-      const newPlane = await Pesawat.create({
-          plane_number, 
-          plane_type, 
-          airplane_partner
-      });
+    // Membuat pesawat baru
+    const newPlane = await Pesawat.create({
+      plane_number,
+      plane_type,
+      airplane_partner,
+      row,
+      column
+    });
 
-      // Membuat 200 kursi untuk pesawat baru
-      const rows = 20;
-      const columns = ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J'];
+    // Membuat array untuk mapping kolom abjad ke nilai integer
+    const alphabet = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
 
-      const kursiData = [];
-      for (let i = 1; i <= rows; i++) {
-          for (let j = 0; j < columns.length; j++) {
-              const seat_number = columns[j] + i.toString();
-              const seat_status = "True"; // Atur status kursi ke True sesuai kebutuhan
-              const plane_id = newPlane.id;
+    const kursiData = [];
+    for (let i = 1; i <= row; i++) {
+      for (let j = 1; j <= column; j++) {
+        const seat_number = alphabet[j - 1] + i.toString();
+        const seat_status = "True"; // Atur status kursi ke True sesuai kebutuhan
+        const plane_id = newPlane.id;
 
-              kursiData.push({ seat_number, seat_status, plane_id });
-          }
+        kursiData.push({ seat_number, seat_status, plane_id });
       }
+    }
 
-      // Simpan semua kursi ke dalam database
-      await Kursi.bulkCreate(kursiData);
+    // Simpan semua kursi ke dalam database
+    await Kursi.bulkCreate(kursiData);
 
-      res.status(200).json({
-          status: "Success add new plane",
-          newPlane
-      });
+    res.status(200).json({
+      status: "Success add new plane",
+      newPlane
+    });
   } catch (err) {
-      next(new ApiError(err.message, 500));
+    next(new ApiError(err.message, 500));
   }
-}
+};
+
 
 // controller READ Plane
 const getPlane = async (req, res, next) => {

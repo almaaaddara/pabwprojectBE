@@ -15,6 +15,12 @@ module.exports = {
       plane_type: {
         type: Sequelize.STRING
       },
+      row: {
+        type: Sequelize.INTEGER
+      },
+      column: {
+        type: Sequelize.INTEGER
+      },
       airplane_partner: {
         type: Sequelize.INTEGER,
         references: {

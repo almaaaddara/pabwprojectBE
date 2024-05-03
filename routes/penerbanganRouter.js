@@ -10,7 +10,7 @@ router.get("/", Penerbangan.getPenerbangan);
 
 router.get("/:id", Penerbangan.getPenerbanganId);
 
-// endpoint update
+// endpoint update (BLM BERHASIL)
 router.patch("/update/:id", Penerbangan.updatePenerbangan);
 
 // endpoint delete

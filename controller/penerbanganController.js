@@ -6,11 +6,11 @@ const getPenerbangan = async (req, res, next) => {
   try {
     const penerbangan = await Penerbangan.findAll({
       include: [
-        { model: Bandara, as: 'departBandara', attributes: ['name'] },
-        { model: Bandara, as: 'destinationBandara', attributes: ['name'] },
-        { model: Pesawat, attributes: ['plane_type'] },
-        { model: Rekanan, attributes: ['name'] }
-      ]
+        { model: Bandara, as: "departBandara", attributes: ["name"] },
+        { model: Bandara, as: "destinationBandara", attributes: ["name"] },
+        { model: Pesawat, attributes: ["plane_type"] },
+        { model: Rekanan, attributes: ["name"] },
+      ],
     });
 
     res.status(200).json({
@@ -29,11 +29,11 @@ const getPenerbanganId = async (req, res, next) => {
     const penerbangan = await Penerbangan.findOne({
       where: { id: req.params.id },
       include: [
-        { model: Bandara, as: 'DepartureAirport', attributes: ['name'] },
-        { model: Bandara, as: 'DestinationAirport', attributes: ['name'] },
-        { model: Pesawat, attributes: ['plane_type'] },
-        { model: Rekanan, attributes: ['name'] }
-      ]
+        { model: Bandara, as: "DepartureAirport", attributes: ["name"] },
+        { model: Bandara, as: "DestinationAirport", attributes: ["name"] },
+        { model: Pesawat, attributes: ["plane_type"] },
+        { model: Rekanan, attributes: ["name"] },
+      ],
     });
 
     res.status(200).json({
@@ -67,7 +67,7 @@ const addPenerbangan = async (req, res, next) => {
     // });
 
     const newPenerbangan = await Penerbangan.create({
-        departure_time,
+      departure_time,
       arival_time,
       price,
       rekanan_id,
@@ -87,19 +87,14 @@ const addPenerbangan = async (req, res, next) => {
 // update penerbangan
 const updatePenerbangan = async (req, res, next) => {
   try {
-    const {
-        departure_time,
-      arival_time,
-      plane_id,
-      depart_id,
-      destination_id,
-    } = req.body;
+    const { departure_time, arival_time, plane_id, depart_id, destination_id } =
+      req.body;
 
-    const Penerbangan = await Penerbangan.findOne({
+    const penerbangan = await Penerbangan.findOne({
       where: { id: req.params.id },
     });
 
-    if (!Penerbangan) {
+    if (!penerbangan) {
       return next(
         new ApiError(
           `penerbangan dengan ID ${req.params.id} tidak ditemukan`,
@@ -109,18 +104,18 @@ const updatePenerbangan = async (req, res, next) => {
     }
 
     // Update penerbangan
-    Penerbangan.departure_time = departure_time;
-    Penerbangan.arival_time = arival_time;
-    Penerbangan.plane_id = plane_id;
-    Penerbangan.depart_id = depart_id;
-    Penerbangan.destination_id = destination_id;
-
-    await Penerbangan.save();
+    await penerbangan.update({
+      departure_time,
+      arival_time,
+      plane_id,
+      depart_id,
+      destination_id,
+    });
 
     res.status(200).json({
       status: "Berhasil",
-      message: `penerbangan dengan ID ${req.params.id} berhasil diperbarui`,
-      Penerbangan,
+      message: `penerbangan dengan ID ${req.params.id} berhasil diupdate`,
+      penerbangan,
     });
   } catch (err) {
     next(new ApiError(err.message, 500));
@@ -130,13 +125,13 @@ const updatePenerbangan = async (req, res, next) => {
 // delete penerbangan
 const deletePenerbangan = async (req, res, next) => {
   try {
-    const Penerbangan = await Penerbangan.findOne({
+    const penerbangan = await Penerbangan.findOne({
       where: {
         id: req.params.id,
       },
     });
 
-    if (!Penerbangan) {
+    if (!penerbangan) {
       return next(
         new ApiError(
           `penerbangan dengan ID ${req.params.id} tidak ditemukan`,
@@ -145,7 +140,7 @@ const deletePenerbangan = async (req, res, next) => {
       );
     }
 
-    await Penerbangan.destroy({
+    await penerbangan.destroy({
       where: {
         id: req.params.id,
       },

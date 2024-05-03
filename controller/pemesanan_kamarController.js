@@ -100,17 +100,16 @@ const updatePemesanan_Kamar = async (req, res, next) => {
       );
     }
 
-    // Update pemesanan kamar
-    pemesanan_kamar.name = name;
-    pemesanan_kamar.NIK = NIK;
-    pemesanan_kamar.gender = gender;
-    pemesanan_kamar.start_date = start_date;
-    pemesanan_kamar.end_date = end_date;
-    pemesanan_kamar.id_kamar = id_kamar;
-    pemesanan_kamar.id_rekanan = id_rekanan;
-    pemesanan_kamar.id_transaksi = id_transaksi;
-
-    await pemesanan_kamar.save();
+    pemesanan_kamar.update({
+      name,
+      NIK,
+      gender,
+      start_date,
+      end_date,
+      id_kamar,
+      id_rekanan,
+      id_transaksi,
+    });
 
     res.status(200).json({
       status: "Berhasil",

@@ -10,7 +10,7 @@ const getTransaksi = async (req, res, next) => {
     res.status(200).json({
       status: "Berhasil",
       message: "Transaksi berhasi didapatkan",
-      transaksi
+      transaksi,
     });
   } catch (err) {
     next(new ApiError(err.message, 500));
@@ -65,6 +65,34 @@ const addTransaksi = async (req, res, next) => {
 };
 
 // update transaksi
+// const updateTransaksi = async (req, res, next) => {
+//   try {
+//     const { price, status, id_pengguna } = req.body;
+
+//     const transaksi = await Transaksi.findOne({
+//       where: { id: req.params.id },
+//     });
+
+//     if (!transaksi) {
+//       return next(
+//         new ApiError(
+//           `Transaksi dengan ID ${req.params.id} tidak ditemukan`,
+//           404
+//         )
+//       );
+//     }
+
+//     kamar.update({price, status, id_pengguna})
+
+//     res.status(200).json({
+//       status: "Berhasil",
+//       message: `Transaksi dengan ID ${req.params.id} berhasil diupdate`,
+//       kamar,
+//     });
+//   } catch (err) {
+//     next(new ApiError(err.message, 500));
+//   }
+// };
 
 // delete transaksi
 const deleteTransaksi = async (req, res, next) => {
@@ -103,5 +131,6 @@ module.exports = {
   getTransaksi,
   getTransaksiId,
   addTransaksi,
+  // updateTransaksi,
   deleteTransaksi,
 };

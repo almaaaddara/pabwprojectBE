@@ -11,6 +11,9 @@ router.get("/:id", Rekanan.getRekananId);
 // endpoint add mitra
 router.post("/add", Rekanan.addRekanan);
 
+// endpoint add mitra
+router.patch("/update/:id", Rekanan.updateRekanan);
+
 // endpoint delete Rekanan
 router.delete("/delete/:id", Rekanan.deleteRekanan);
 

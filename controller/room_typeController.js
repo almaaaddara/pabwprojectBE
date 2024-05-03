@@ -38,11 +38,11 @@ const getRoom_TypeId = async (req, res, next) => {
 const addRoom_Type = async (req, res, next) => {
   try {
     const file = req.file;
-        
-        // Cek apakah ada gambar yang diunggah
-        if (!file) {
-            return next(new ApiError("Silakan pilih file gambar!", 400));
-        }
+
+    // Cek apakah ada gambar yang diunggah
+    if (!file) {
+      return next(new ApiError("Silakan pilih file gambar!", 400));
+    }
 
     const { room_type } = req.body;
 
@@ -83,8 +83,8 @@ const updateRoom_Type = async (req, res, next) => {
 
     res.status(200).json({
       status: "Berhasil",
-      message: `Tipe Kamar dengan ID ${roomTypeId} berhasil diperbarui`,
-      roomType,
+      message: `Tipe Kamar dengan ID ${req.params.id} berhasil diperbarui`,
+      roomtype,
     });
   } catch (err) {
     next(new ApiError(err.message, 500));

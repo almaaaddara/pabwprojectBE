@@ -74,14 +74,14 @@ const updateRekanan = async (req, res, next) => {
       );
     }
 
-    rekanan.name = name;
-    rekanan.address = address;
-    rekanan.phone = phone;
-    rekanan.description = description;
-    rekanan.type = type;
-    rekanan.id_pengguna = id_pengguna;
-
-    await rekanan.save();
+    await rekanan.update({
+      name,
+      address,
+      phone,
+      description,
+      type,
+      id_pengguna,
+    });
 
     res.status(200).json({
       status: "Berhasil",

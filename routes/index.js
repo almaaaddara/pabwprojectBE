@@ -10,12 +10,14 @@ const Room_Type = require("./room_typeRouter");
 const Kursi = require("./kursiRouter");
 const Bandara = require("./bandaraRouter");
 const Pesawat = require("./pesawatRouter");
+const Hotel = require("./hotelRouter");
 const Penerbangan = require("./penerbanganRouter");
 const Pemesanan_Kursi = require("./pemesanan_kursiRouter");
 
 router.use("/user", User);
 router.use("/mitra", Rekanan);
 router.use("/transaksi", Transaksi);
+router.use("/hotel", Hotel);
 router.use("/pemesanan_kamar", Pemesanan_Kamar);
 router.use("/kamar", Kamar);
 router.use("/room_type", Room_Type);

@@ -2,35 +2,32 @@
 /** @type {import('sequelize-cli').Migration} */
 module.exports = {
   async up(queryInterface, Sequelize) {
-    await queryInterface.createTable('Kamar', {
+    await queryInterface.createTable('Hotel', {
       id: {
         allowNull: false,
         autoIncrement: true,
         primaryKey: true,
         type: Sequelize.INTEGER
       },
-      room_number: {
+      image: {
         type: Sequelize.STRING
       },
-      room_capacity: {
-        type: Sequelize.INTEGER
+      facility: {
+        type: Sequelize.STRING
       },
-      price: {
-        type: Sequelize.DECIMAL
+      description: {
+        type: Sequelize.STRING
       },
-      id_hotel: {
+      name: {
+        type: Sequelize.STRING
+      },
+      address: {
+        type: Sequelize.STRING
+      },
+      id_rekanan: {
         type: Sequelize.INTEGER,
         references: {
-          model: 'Hotel',
-          key: 'id',
-        },
-        onUpdate: 'CASCADE',
-        onDelete: 'CASCADE',
-      },
-      room_type: {
-        type: Sequelize.INTEGER,
-        references: {
-          model: 'Room_Type',
+          model: 'Rekanan',
           key: 'id',
         },
         onUpdate: 'CASCADE',
@@ -47,6 +44,6 @@ module.exports = {
     });
   },
   async down(queryInterface, Sequelize) {
-    await queryInterface.dropTable('Kamar');
+    await queryInterface.dropTable('Hotel');
   }
 };

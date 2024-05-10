@@ -20,8 +20,9 @@ module.exports = (sequelize, DataTypes) => {
     }
   }
   Room_Type.init({
-    room_type: DataTypes.INTEGER,
-    image: DataTypes.STRING
+    room_type: DataTypes.STRING,
+    image: DataTypes.STRING,
+    facility: DataTypes.STRING,
   }, {
     sequelize,
     modelName: 'Room_Type',

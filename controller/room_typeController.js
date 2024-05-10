@@ -44,10 +44,11 @@ const addRoom_Type = async (req, res, next) => {
       return next(new ApiError("Silakan pilih file gambar!", 400));
     }
 
-    const { room_type } = req.body;
+    const { room_type, facility } = req.body;
 
     const newRoom_Type = await Room_Type.create({
       room_type,
+      facility,
       image: file.path,
     });
     res.status(200).json({
@@ -62,7 +63,7 @@ const addRoom_Type = async (req, res, next) => {
 // update room type
 const updateRoom_Type = async (req, res, next) => {
   try {
-    const { room_type, image } = req.body;
+    const { room_type, facility, image } = req.body;
     const roomtype = await Room_Type.findOne({
       where: { id: req.params.id },
     });
@@ -78,6 +79,7 @@ const updateRoom_Type = async (req, res, next) => {
 
     await roomtype.update({
       room_type,
+      facility,
       image,
     });
 

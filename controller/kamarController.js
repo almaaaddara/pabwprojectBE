@@ -36,12 +36,13 @@ const getKamarId = async (req, res, next) => {
 // post kamar
 const addKamar = async (req, res, next) => {
   try {
-    const { room_number, room_capacity, price, room_type } = req.body;
+    const { room_number, room_capacity, price, id_hotel, room_type } = req.body;
 
     const newKamar = await Kamar.create({
       room_number,
       room_capacity,
       price,
+      id_hotel,
       room_type,
     });
     res.status(200).json({
@@ -56,7 +57,7 @@ const addKamar = async (req, res, next) => {
 // update kamar
 const updateKamar = async (req, res, next) => {
   try {
-    const { room_number, room_capacity, price, room_type } = req.body;
+    const { room_number, room_capacity, price, id_hotel, room_type } = req.body;
 
     const kamar = await Kamar.findOne({
       where: { id: req.params.id },
@@ -71,6 +72,7 @@ const updateKamar = async (req, res, next) => {
     kamar.room_number = room_number;
     kamar.room_capacity = room_capacity;
     kamar.price = price;
+    kamar.id_hotel = id_hotel;
     kamar.room_type = room_type;
 
     await kamar.save();

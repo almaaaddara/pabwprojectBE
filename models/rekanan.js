@@ -11,6 +11,12 @@ module.exports = (sequelize, DataTypes) => {
      */
     static associate(models) {
       // define association here
+      Rekanan.hasMany(models.Hotel, {
+        foreignKey: 'id_rekanan', // Asumsi Anda memiliki kolom bernama rekananId di tabel Pesawat untuk menyimpan asosiasi
+        targetKey: 'id',
+        allowNull: 'false',
+        onDelete: 'CASCADE',
+      });
       Rekanan.hasMany(models.Pesawat, {
         foreignKey: 'airplane_partner', // Asumsi Anda memiliki kolom bernama rekananId di tabel Pesawat untuk menyimpan asosiasi
         targetKey: 'id',

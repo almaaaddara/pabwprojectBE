@@ -17,6 +17,12 @@ module.exports = (sequelize, DataTypes) => {
         allowNull: 'false',
         onDelete: 'CASCADE', // Optional: Set the deletion behavior
       });
+      Kamar.belongsTo(models.Hotel, {
+        foreignKey: 'id_hotel',
+        targetKey: 'id',
+        allowNull: 'false',
+        onDelete: 'CASCADE', // Optional: Set the deletion behavior
+      });
       Kamar.belongsTo(models.Room_Type, {
         foreignKey: 'room_type',
         targetKey: 'id',

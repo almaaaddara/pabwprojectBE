@@ -10,9 +10,12 @@ module.exports = {
         type: Sequelize.INTEGER
       },
       room_type: {
-        type: Sequelize.INTEGER
+        type: Sequelize.STRING
       },
       image: {
+        type: Sequelize.STRING
+      },
+      facility: {
         type: Sequelize.STRING
       },
       createdAt: {

@@ -50,6 +50,45 @@ const getKursiById = async (req, res, next) => {
   }
 }
 
+// Controller GET Kursi By Status
+const getKursiByStatus = async (req, res, next) => {
+  try {
+    const { seat_status } = req.query;
+    
+    if (seat_status !== 'True' && seat_status !== 'False') {
+      return next(new ApiError("Status harus berupa 'True' atau 'False'", 400));
+    }
+
+    const seats = await Kursi.findAll({
+      attributes: ['id', 'seat_number', 'seat_status'],
+      where: { seat_status }
+    });
+
+    res.status(200).json({
+      status: "Success",
+      data: seats
+    });
+  } catch (err) {
+    next(new ApiError(err.message, 500));
+  }
+};
+
+// Controller to count seats with status "False"
+const kursiTersedia = async (req, res, next) => {
+  try {
+    const trueSeatCount = await Kursi.count({
+      where: { seat_status: 'True' }
+    });
+
+    res.status(200).json({
+      status: "Success",
+      data: trueSeatCount
+    });
+  } catch (err) {
+    next(new ApiError(err.message, 500));
+  }
+};
+
 // Controller UPDATE Kursi
 const updateKursi = async (req, res, next) => {
     try {
@@ -67,7 +106,7 @@ const updateKursi = async (req, res, next) => {
         }
 
         // Lakukan update pada kursi
-        await Kursi.update({
+        await kursi.update({
             seat_number,
             seat_status
         }, {
@@ -118,6 +157,8 @@ module.exports = {
     createKursi,
     getKursi,
     getKursiById,
+    getKursiByStatus,
+    kursiTersedia,
     deleteKursi,
     updateKursi
   };

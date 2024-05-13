@@ -6,8 +6,8 @@ const getPenerbangan = async (req, res, next) => {
   try {
     const penerbangan = await Penerbangan.findAll({
       include: [
-        { model: Bandara, as: "departBandara", attributes: ["name"] },
-        { model: Bandara, as: "destinationBandara", attributes: ["name"] },
+        { model: Bandara, as: "departBandara", attributes: ["name", "icao_code"] },
+        { model: Bandara, as: "destinationBandara", attributes: ["name", "icao_code"] },
         { model: Pesawat, attributes: ["plane_type"] },
         { model: Rekanan, attributes: ["name"] },
       ],
@@ -29,8 +29,8 @@ const getPenerbanganId = async (req, res, next) => {
     const penerbangan = await Penerbangan.findOne({
       where: { id: req.params.id },
       include: [
-        { model: Bandara, as: "DepartureAirport", attributes: ["name"] },
-        { model: Bandara, as: "DestinationAirport", attributes: ["name"] },
+        { model: Bandara, as: "departBandara", attributes: ["name", "icao_code"] },
+        { model: Bandara, as: "destinationBandara", attributes: ["name", "icao_code"] },
         { model: Pesawat, attributes: ["plane_type"] },
         { model: Rekanan, attributes: ["name"] },
       ],
@@ -87,8 +87,7 @@ const addPenerbangan = async (req, res, next) => {
 // update penerbangan
 const updatePenerbangan = async (req, res, next) => {
   try {
-    const { departure_time, arival_time, plane_id, depart_id, destination_id } =
-      req.body;
+    const { departure_time, arival_time, price, plane_id, rekanan_id, depart_id, destination_id } = req.body;
 
     const penerbangan = await Penerbangan.findOne({
       where: { id: req.params.id },
@@ -97,7 +96,7 @@ const updatePenerbangan = async (req, res, next) => {
     if (!penerbangan) {
       return next(
         new ApiError(
-          `penerbangan dengan ID ${req.params.id} tidak ditemukan`,
+          `Penerbangan dengan ID ${req.params.id} tidak ditemukan`,
           404
         )
       );
@@ -107,7 +106,9 @@ const updatePenerbangan = async (req, res, next) => {
     await penerbangan.update({
       departure_time,
       arival_time,
+      price,
       plane_id,
+      rekanan_id,
       depart_id,
       destination_id,
     });

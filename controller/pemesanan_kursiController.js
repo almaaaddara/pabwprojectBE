@@ -81,33 +81,32 @@ const updatePemesanan_Kursi = async (req, res, next) => {
         id_transaksi,
     } = req.body;
 
-    const Pemesanan_Kursi = await Pemesanan_Kursi.findOne({
+    const pemesanan_kursi = await Pemesanan_Kursi.findOne({
       where: { id: req.params.id },
     });
 
-    if (!Pemesanan_Kursi) {
+    if (!pemesanan_kursi) {
       return next(
         new ApiError(
-          `Pemesanan Kamar dengan ID ${req.params.id} tidak ditemukan`,
+          `Pemesanan Kursi dengan ID ${req.params.id} tidak ditemukan`,
           404
         )
       );
     }
 
-    // Update pemesanan kamar
-    Pemesanan_Kursi.name = name;
-    Pemesanan_Kursi.NIK = NIK;
-    Pemesanan_Kursi.gender = gender;
-    Pemesanan_Kursi.id_penerbangan = id_penerbangan;
-    Pemesanan_Kursi.id_kursi = id_kursi;
-    Pemesanan_Kursi.id_transaksi = id_transaksi;
-
-    await Pemesanan_Kursi.save();
+    pemesanan_kursi.update({
+      name,
+      NIK,
+      gender,
+      id_penerbangan,
+      id_kursi,
+      id_transaksi,
+    });
 
     res.status(200).json({
       status: "Berhasil",
-      message: `Pemesanan Kamar dengan ID ${req.params.id} berhasil diperbarui`,
-      Pemesanan_Kursi,
+      message: `Pemesanan Kursi dengan ID ${req.params.id} berhasil diperbarui`,
+      pemesanan_kursi,
     });
   } catch (err) {
     next(new ApiError(err.message, 500));
@@ -117,13 +116,13 @@ const updatePemesanan_Kursi = async (req, res, next) => {
 // delete pemesanan kamar
 const deletePemesanan_Kursi = async (req, res, next) => {
   try {
-    const Pemesanan_Kursi = await Pemesanan_Kursi.findOne({
+    const pemesanan_kursi = await Pemesanan_Kursi.findOne({
       where: {
         id: req.params.id,
       },
     });
 
-    if (!Pemesanan_Kursi) {
+    if (!pemesanan_kursi) {
       return next(
         new ApiError(
           `Pemesanan Kamar dengan ID ${req.params.id} tidak ditemukan`,
@@ -132,7 +131,7 @@ const deletePemesanan_Kursi = async (req, res, next) => {
       );
     }
 
-    await Pemesanan_Kursi.destroy({
+    await pemesanan_kursi.destroy({
       where: {
         id: req.params.id,
       },

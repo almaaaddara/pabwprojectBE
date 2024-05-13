@@ -11,8 +11,12 @@ router.get("/", Kursi.getKursi);
 
 router.get("/:id", Kursi.getKursiById);
 
+router.get("/bystatus", Kursi.getKursiByStatus);
+
+router.get("/tersedia", Kursi.kursiTersedia);
+
 // endpoint update kursi (BELUM BERHASIL!!!)
-// router.patch("/update/:id", Kursi.updateKursi);
+router.patch("/update/:id", Kursi.updateKursi);
 
 // endpoint delete kursi
 router.delete("/delete/:id", Kursi.deleteKursi);

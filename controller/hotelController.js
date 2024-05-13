@@ -74,7 +74,7 @@ const updateHotel = async (req, res, next) => {
 
     if (!hotel) {
       return next(
-        new ApiError(`Mitra dengan ID ${req.params.id} tidak ditemukan`, 404)
+        new ApiError(`Hotel dengan ID ${req.params.id} tidak ditemukan`, 404)
       );
     }
 

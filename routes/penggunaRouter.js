@@ -9,6 +9,9 @@ router.post("/register", User.register);
 // endpoint POST login pengguna (untuk membaca email dan password)
 router.post("/login", User.login);
 
+
+router.patch("/update/:id", User.updateUser);
+
 // endpoint POST untuk ngecek token pengguna saat login
 router.post("/token", User.verifyToken)
 

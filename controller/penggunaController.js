@@ -92,6 +92,42 @@ const login = async (req, res, next) => {
   }
 };
 
+// update user
+const updateUser = async (req, res, next) => {
+  try {
+    const { name, email, phone, password, role, balance } = req.body;
+
+    const user = await Pengguna.findOne({
+      where: { id: req.params.id },
+    });
+
+    if (!user) {
+      return next(
+        new ApiError(`User dengan ID ${req.params.id} tidak ditemukan`, 404)
+      );
+    }
+
+    await user.update({
+      name,
+      email,
+      phone,
+      password,
+      role,
+      balance
+    });
+
+    res.status(200).json({
+      status: "Berhasil",
+      message: `User dengan ID ${req.params.id} berhasil diupdate`,
+      data: {
+        user,
+      },
+    });
+  } catch (err) {
+    next(new ApiError(err.message, 500));
+  }
+};
+
 const verifyToken = async (req, res) => {
   const { token } = req.body;
 
@@ -141,6 +177,7 @@ module.exports = {
   register,
   login,
   getAllUser,
+  updateUser,
   getUserById,
   verifyToken,
 };

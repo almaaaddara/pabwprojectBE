@@ -31,7 +31,7 @@ const getPenerbanganId = async (req, res, next) => {
       include: [
         { model: Bandara, as: "departBandara", attributes: ["name", "icao_code"] },
         { model: Bandara, as: "destinationBandara", attributes: ["name", "icao_code"] },
-        { model: Pesawat, attributes: ["plane_type"] },
+        { model: Pesawat, attributes: ["plane_type", "column", "row"] },
         { model: Rekanan, attributes: ["name"] },
       ],
     });

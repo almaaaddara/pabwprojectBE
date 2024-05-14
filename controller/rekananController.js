@@ -38,6 +38,12 @@ const getRekananId = async (req, res, next) => {
 // post rekanan
 const addRekanan = async (req, res, next) => {
   try {
+    const file = req.file;
+
+    if (!file) {
+        return next(new ApiError("Silakan pilih file gambar!", 400));
+      } 
+      
     const { name, address, phone, description, type, id_pengguna } = req.body;
 
     const newRekanan = await Rekanan.create({
@@ -46,6 +52,7 @@ const addRekanan = async (req, res, next) => {
       phone,
       description,
       type,
+      image: file.path,
       id_pengguna,
     });
     res.status(200).json({

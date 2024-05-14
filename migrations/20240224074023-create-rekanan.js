@@ -28,6 +28,9 @@ module.exports = {
         type: Sequelize.STRING,
         allowNull: false
       },
+      image: {
+        type: Sequelize.STRING
+      },
       id_pengguna: {
         type: Sequelize.INTEGER,
         references: {

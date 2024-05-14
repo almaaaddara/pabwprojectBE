@@ -1,10 +1,15 @@
-const { Kamar } = require("../models");
+const { Kamar, Hotel, Room_Type } = require("../models");
 const ApiError = require("../utils/apiError");
 
 // get all kamar
 const getKamar = async (req, res, next) => {
   try {
-    const kamar = await Kamar.findAll();
+    const kamar = await Kamar.findAll({
+      include: [
+        { model: Hotel },
+        { model: Room_Type },
+      ],
+    });
 
     res.status(200).json({
       status: "Berhasil",

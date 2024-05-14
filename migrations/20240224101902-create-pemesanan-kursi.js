@@ -9,7 +9,10 @@ module.exports = {
         primaryKey: true,
         type: Sequelize.INTEGER
       },
-      name: {
+      firstname: {
+        type: Sequelize.STRING
+      },
+      lastname: {
         type: Sequelize.STRING
       },
       NIK: {
@@ -19,6 +22,12 @@ module.exports = {
         allowNull: false,
         type: Sequelize.ENUM('Laki-Laki', 'Perempuan'),
         defaultValue: 'Laki-Laki'
+      },
+      email: {
+        type: Sequelize.STRING
+      },
+      phone: {
+        type: Sequelize.STRING
       },
       id_penerbangan: {
         type: Sequelize.INTEGER,

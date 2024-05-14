@@ -1,6 +1,8 @@
 const express = require("express");
 const router = express.Router();
 const Rekanan = require("../controller/rekananController");
+const upload = require("../middleware/upload");
+
 
 // endpoint get all Rekanan
 router.get("/", Rekanan.getRekanan);
@@ -9,7 +11,7 @@ router.get("/", Rekanan.getRekanan);
 router.get("/:id", Rekanan.getRekananId);
 
 // endpoint add mitra
-router.post("/add", Rekanan.addRekanan);
+router.post("/add", upload.single("image"), Rekanan.addRekanan);
 
 // endpoint add mitra
 router.patch("/update/:id", Rekanan.updateRekanan);

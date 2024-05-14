@@ -32,13 +32,16 @@ module.exports = (sequelize) => {
     }
   }
   Pemesanan_Kursi.init({
-    name: DataTypes.STRING,
+    firstname: DataTypes.STRING,
+    lastname: DataTypes.STRING,
     NIK: DataTypes.STRING,
     gender: {
       allowNull: false,
       type: DataTypes.ENUM("Laki-Laki", "Perempuan"),
       defaultValue: "Laki-Laki"
     },
+    email: DataTypes.STRING,
+    phone: DataTypes.STRING,
   }, {
     sequelize,
     modelName: 'Pemesanan_Kursi',

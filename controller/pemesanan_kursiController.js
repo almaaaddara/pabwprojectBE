@@ -37,9 +37,12 @@ const getPemesanan_KursiId = async (req, res, next) => {
 const addPemesanan_Kursi = async (req, res, next) => {
   try {
     const {
-      name,
+      firstname,
+      lastname,
       NIK,
       gender,
+      email,
+      phone,
       id_penerbangan,
       id_kursi,
       id_transaksi,
@@ -53,12 +56,15 @@ const addPemesanan_Kursi = async (req, res, next) => {
     // });
 
     const newPemesanan_Kursi = await Pemesanan_Kursi.create({
-        name,
-        NIK,
-        gender,
-        id_penerbangan,
-        id_kursi,
-        id_transaksi,
+      firstname,
+      lastname,
+      NIK,
+      gender,
+      email,
+      phone,
+      id_penerbangan,
+      id_kursi,
+      id_transaksi,
     });
     res.status(200).json({
       status: "Pemesanan kursi berhasil dilakukan",
@@ -73,12 +79,15 @@ const addPemesanan_Kursi = async (req, res, next) => {
 const updatePemesanan_Kursi = async (req, res, next) => {
   try {
     const {
-        name,
-        NIK,
-        gender,
-        id_penerbangan,
-        id_kursi,
-        id_transaksi,
+      firstname,
+      lastname,
+      NIK,
+      gender,
+      email,
+      phone,
+      id_penerbangan,
+      id_kursi,
+      id_transaksi,
     } = req.body;
 
     const pemesanan_kursi = await Pemesanan_Kursi.findOne({
@@ -95,9 +104,12 @@ const updatePemesanan_Kursi = async (req, res, next) => {
     }
 
     pemesanan_kursi.update({
-      name,
+      firstname,
+      lastname,
       NIK,
       gender,
+      email,
+      phone,
       id_penerbangan,
       id_kursi,
       id_transaksi,

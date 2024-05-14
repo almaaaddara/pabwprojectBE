@@ -38,16 +38,9 @@ const getHotelId = async (req, res, next) => {
 // post hotel
 const addHotel = async (req, res, next) => {
   try {
-    const file = req.file;
-
-    if (!file) {
-        return next(new ApiError("Silakan pilih file gambar!", 400));
-      }  
-
     const { facility, description, name, address, id_rekanan } = req.body;
 
     const newHotel = await Hotel.create({
-        image: file.path,
         facility,
         description,
         name,
@@ -66,7 +59,7 @@ const addHotel = async (req, res, next) => {
 // update hotel
 const updateHotel = async (req, res, next) => {
   try {
-    const { image, facility, description, name, address, id_rekanan } = req.body;
+    const { facility, description, name, address, id_rekanan } = req.body;
 
     const hotel = await Hotel.findOne({
       where: { id: req.params.id },
@@ -79,7 +72,6 @@ const updateHotel = async (req, res, next) => {
     }
 
     await hotel.update({
-        image,
         facility,
         description,
         name,

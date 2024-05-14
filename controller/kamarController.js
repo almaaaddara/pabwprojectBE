@@ -26,6 +26,10 @@ const getKamarId = async (req, res, next) => {
   try {
     const kamar = await Kamar.findOne({
       where: { id: req.params.id },
+      include: [
+        { model: Hotel },
+        { model: Room_Type },
+      ],
     });
 
     res.status(200).json({

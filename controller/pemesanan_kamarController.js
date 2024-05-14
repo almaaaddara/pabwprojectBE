@@ -38,8 +38,8 @@ const addPemesanan_Kamar = async (req, res, next) => {
   try {
     const {
       name,
-      NIK,
-      gender,
+      email,
+      phone,
       start_date,
       end_date,
       id_kamar,
@@ -56,8 +56,8 @@ const addPemesanan_Kamar = async (req, res, next) => {
 
     const newPemesanan_Kamar = await Pemesanan_Kamar.create({
       name,
-      NIK,
-      gender,
+      email,
+      phone,
       start_date,
       end_date,
       id_kamar,
@@ -78,8 +78,8 @@ const updatePemesanan_Kamar = async (req, res, next) => {
   try {
     const {
       name,
-      NIK,
-      gender,
+      email,
+      phone,
       start_date,
       end_date,
       id_kamar,
@@ -102,8 +102,8 @@ const updatePemesanan_Kamar = async (req, res, next) => {
 
     pemesanan_kamar.update({
       name,
-      NIK,
-      gender,
+      email,
+      phone,
       start_date,
       end_date,
       id_kamar,

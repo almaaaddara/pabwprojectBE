@@ -23,7 +23,7 @@ const createPlane = async (req, res, next) => {
     for (let i = 1; i <= row; i++) {
       for (let j = 1; j <= column; j++) {
         const seat_number = alphabet[j - 1] + i.toString();
-        const seat_status = "True"; // Atur status kursi ke True sesuai kebutuhan
+        const seat_status = true;
         const plane_id = newPlane.id;
 
         kursiData.push({ seat_number, seat_status, plane_id });

@@ -1,3 +1,4 @@
+const { where } = require("sequelize")
 const { Kursi } = require("../models")
 const ApiError = require("../utils/apiError")
 
@@ -23,12 +24,24 @@ const createKursi = async (req, res, next) => {
 // controller READ Kursi
 const getKursi = async (req, res, next) => {
     try {
+      if (req.query.status) {
+        console.log(req.query.status)
+        const seat = await Kursi.findAll({
+          where: {seat_status: req.query.status}
+        })
+        res.status(200).json({
+          status: "Succes",
+          data: seat,
+        })
+      }
+      else{
         const kursi = await Kursi.findAll()
 
         res.status(200).json({
             status: "Succes",
             kursi
           })
+      }
     } catch (err) {
         next(new ApiError(err.message, 500))
     }
@@ -36,6 +49,7 @@ const getKursi = async (req, res, next) => {
 
 // Read Kursi By ID
 const getKursiById = async (req, res, next) => {
+  console.log("halo kak")
   try {
       const kursi = await Kursi.findOne({
           where: {id: req.params.id}
@@ -49,45 +63,6 @@ const getKursiById = async (req, res, next) => {
       next(new ApiError(err.message, 500))
   }
 }
-
-// Controller GET Kursi By Status
-const getKursiByStatus = async (req, res, next) => {
-  try {
-    const { seat_status } = req.query;
-    
-    if (seat_status !== 'True' && seat_status !== 'False') {
-      return next(new ApiError("Status harus berupa 'True' atau 'False'", 400));
-    }
-
-    const seats = await Kursi.findAll({
-      attributes: ['id', 'seat_number', 'seat_status'],
-      where: { seat_status }
-    });
-
-    res.status(200).json({
-      status: "Success",
-      data: seats
-    });
-  } catch (err) {
-    next(new ApiError(err.message, 500));
-  }
-};
-
-// Controller to count seats with status "False"
-const kursiTersedia = async (req, res, next) => {
-  try {
-    const trueSeatCount = await Kursi.count({
-      where: { seat_status: 'True' }
-    });
-
-    res.status(200).json({
-      status: "Success",
-      data: trueSeatCount
-    });
-  } catch (err) {
-    next(new ApiError(err.message, 500));
-  }
-};
 
 // Controller UPDATE Kursi
 const updateKursi = async (req, res, next) => {
@@ -157,8 +132,6 @@ module.exports = {
     createKursi,
     getKursi,
     getKursiById,
-    getKursiByStatus,
-    kursiTersedia,
     deleteKursi,
     updateKursi
   };

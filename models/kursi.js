@@ -29,8 +29,8 @@ module.exports = (sequelize, DataTypes) => {
     seat_number: DataTypes.STRING,
     seat_status: {
       allowNull: false,
-      type: DataTypes.ENUM("True", "False"),
-      defaultValue: "True"
+      type: DataTypes.BOOLEAN,
+      defaultValue: true
     },
   }, {
     sequelize,

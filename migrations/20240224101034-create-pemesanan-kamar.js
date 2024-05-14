@@ -12,13 +12,11 @@ module.exports = {
       name: {
         type: Sequelize.STRING
       },
-      NIK: {
+      email: {
         type: Sequelize.STRING
       },
-      gender: {
-        allowNull: false,
-        type: Sequelize.ENUM('Laki-Laki', 'Perempuan'),
-        defaultValue: 'Laki-Laki'
+      phone: {
+        type: Sequelize.STRING
       },
       start_date: {
         type: Sequelize.DATE

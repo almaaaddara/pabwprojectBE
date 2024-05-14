@@ -33,12 +33,8 @@ module.exports = (sequelize, DataTypes) => {
   }
   Pemesanan_Kamar.init({
     name: DataTypes.STRING,
-    NIK: DataTypes.STRING,
-    gender: {
-      allowNull: false,
-      type: DataTypes.ENUM("Laki-Laki", "Perempuan"),
-      defaultValue: "Laki-Laki"
-    },
+    email: DataTypes.STRING,
+    phone: DataTypes.STRING,
     start_date: DataTypes.DATE,
     end_date: DataTypes.DATE
   }, {

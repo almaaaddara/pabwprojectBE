@@ -1,10 +1,14 @@
-const { Hotel } = require("../models");
+const { Hotel, Rekanan } = require("../models");
 const ApiError = require("../utils/apiError");
 
 // get all hotel
 const getHotel = async (req, res, next) => {
   try {
-    const hotel = await Hotel.findAll();
+    const hotel = await Hotel.findAll({
+      include: [
+        { model: Rekanan },
+      ],
+    });
 
     res.status(200).json({
       status: "Berhasil",
@@ -21,6 +25,9 @@ const getHotelId = async (req, res, next) => {
   try {
     const hotel = await Hotel.findOne({
       where: { id: req.params.id },
+      include: [
+        { model: Rekanan },
+      ],
     });
 
     res.status(200).json({

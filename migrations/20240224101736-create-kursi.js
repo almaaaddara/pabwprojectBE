@@ -14,8 +14,8 @@ module.exports = {
       },
       seat_status: {
         allowNull: false,
-        type: Sequelize.ENUM('True', 'False'),
-        defaultValue: 'True'
+        type: Sequelize.BOOLEAN,
+        defaultValue: true
       },
       plane_id: {
         type: Sequelize.INTEGER,

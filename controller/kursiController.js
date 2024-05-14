@@ -49,7 +49,6 @@ const getKursi = async (req, res, next) => {
 
 // Read Kursi By ID
 const getKursiById = async (req, res, next) => {
-  console.log("halo kak")
   try {
       const kursi = await Kursi.findOne({
           where: {id: req.params.id}
@@ -59,6 +58,27 @@ const getKursiById = async (req, res, next) => {
           status: "Succes",
           data: kursi,
         })
+  } catch (err) {
+      next(new ApiError(err.message, 500))
+  }
+}
+
+const getKursiPlaneID = async (req, res, next) => {
+  try {
+    if (req.query.status) {
+      console.log(req.query.status)
+      const seat = await Kursi.findAll({
+        where: {seat_status: req.query.status, plane_id: req.params.plane_id}
+      })
+      res.status(200).json({
+        status: "Succes",
+        data: seat,
+      })
+    } else {
+      const kursi = await Kursi.findAll({
+        where: {plane_id: req.params.plane_id}
+    })
+  }
   } catch (err) {
       next(new ApiError(err.message, 500))
   }
@@ -132,6 +152,7 @@ module.exports = {
     createKursi,
     getKursi,
     getKursiById,
+    getKursiPlaneID,
     deleteKursi,
     updateKursi
   };

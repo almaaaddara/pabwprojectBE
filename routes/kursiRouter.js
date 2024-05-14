@@ -11,7 +11,7 @@ router.get("/", Kursi.getKursi);
 
 router.get("/:id", Kursi.getKursiById);
 
-// router.get("/", Kursi.getStatusKursi);
+router.get("/plane/:plane_id", Kursi.getKursiPlaneID);
 
 // endpoint update kursi (BELUM BERHASIL!!!)
 router.patch("/update/:id", Kursi.updateKursi);

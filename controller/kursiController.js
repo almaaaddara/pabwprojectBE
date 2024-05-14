@@ -78,6 +78,10 @@ const getKursiPlaneID = async (req, res, next) => {
       const kursi = await Kursi.findAll({
         where: {plane_id: req.params.plane_id}
     })
+    res.status(200).json({
+      status: "Succes",
+      data: kursi,
+    })
   }
   } catch (err) {
       next(new ApiError(err.message, 500))

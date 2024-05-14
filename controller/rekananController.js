@@ -1,10 +1,14 @@
-const { Rekanan } = require("../models");
+const { Rekanan, Pengguna } = require("../models");
 const ApiError = require("../utils/apiError");
 
 // get all rekanan
 const getRekanan = async (req, res, next) => {
   try {
-    const rekanan = await Rekanan.findAll();
+    const rekanan = await Rekanan.findAll({
+      include: [
+        { model: Pengguna },
+      ],
+    });
 
     res.status(200).json({
       status: "Berhasil",
@@ -21,6 +25,9 @@ const getRekananId = async (req, res, next) => {
   try {
     const rekanan = await Rekanan.findOne({
       where: { id: req.params.id },
+      include: [
+        { model: Pengguna },
+      ],
     });
 
     res.status(200).json({

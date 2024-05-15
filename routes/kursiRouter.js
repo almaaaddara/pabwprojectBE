@@ -16,6 +16,8 @@ router.get("/plane/:plane_id", Kursi.getKursiPlaneID);
 // endpoint update kursi (BELUM BERHASIL!!!)
 router.patch("/update/:id", Kursi.updateKursi);
 
+router.put("/false/:id", Kursi.updateStatusFalse);
+
 // endpoint delete kursi
 router.delete("/delete/:id", Kursi.deleteKursi);
 

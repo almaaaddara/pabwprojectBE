@@ -123,6 +123,38 @@ const updateKursi = async (req, res, next) => {
     }
 };
 
+const updateStatusFalse = async (req, res, next) => {
+  try {
+      const { seat_status } = req.body;
+      const kursiId = req.params.id;
+
+      const kursi = await Kursi.findOne({
+          where: {
+              id: kursiId
+          }
+      });
+      if (!kursi) {
+          return next(new ApiError(`Kursi dengan ID ${kursiId} tidak ditemukan`, 404));
+      }
+
+      // Lakukan update pada kursi
+      await kursi.update({
+        seat_status: false
+      }, {
+          where: {
+              id: kursiId
+          }
+      });
+
+      res.status(200).json({
+          status: "Success",
+          message: "Kursi seat status updated to false successfully"
+      });
+  } catch (err) {
+      next(new ApiError(err.message, 500));
+  }
+};
+
 // controller DELETE kursi
 const deleteKursi = async (req, res, next) => {
     try {
@@ -158,5 +190,6 @@ module.exports = {
     getKursiById,
     getKursiPlaneID,
     deleteKursi,
-    updateKursi
+    updateKursi,
+    updateStatusFalse
   };

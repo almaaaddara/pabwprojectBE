@@ -21,4 +21,7 @@ router.get("/", User.getAllUser);
 // endpoint GET untuk mendapatkan data Peserta by ID
 router.get("/:id", User.getUserById);
 
+router.delete("/delete/:id", User.deleteUser);
+
+
 module.exports = router;

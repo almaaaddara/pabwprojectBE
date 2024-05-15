@@ -173,6 +173,36 @@ const getUserById = async (req, res, next) => {
   }
 }
 
+// delete user
+const deleteUser = async (req, res, next) => {
+  try {
+    const user = await Pengguna.findOne({
+      where: {
+        id: req.params.id,
+      },
+    });
+
+    if (!user) {
+      return next(
+        new ApiError(`Pengguna dengan ID ${req.params.id} tidak ditemukan`, 404)
+      );
+    }
+
+    await Pengguna.destroy({
+      where: {
+        id: req.params.id,
+      },
+    });
+
+    res.status(200).json({
+      status: "Berhasil",
+      message: `Pengguna dengan ID ${req.params.id} berhasil dihapus`,
+    });
+  } catch (err) {
+    next(new ApiError(err.message, 500));
+  }
+};
+
 module.exports = {
   register,
   login,
@@ -180,4 +210,5 @@ module.exports = {
   updateUser,
   getUserById,
   verifyToken,
+  deleteUser
 };
